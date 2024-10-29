@@ -14,12 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include
-from scmapp import views
+from django.urls import path, include
+from django.views.generic import RedirectView  # Import RedirectView
 
 urlpatterns = [
-    # path(r'^/',views.index,name='index'),
-    path('scm/',include('scmapp.urls')),
     path('admin/', admin.site.urls),
+    path('scm/', include('scmapp.urls')),  # Include scmapp URLs
+    path('', RedirectView.as_view(url='scm/', permanent=False)),  # Redirect root URL to scm/
 ]
+
